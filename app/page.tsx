@@ -17,13 +17,12 @@ const faqs = [
 export default async function Home() {
   const questions = await db.visitorQuestion.findMany({ where: { approved: true, published: true, rejected: false }, orderBy: { createdAt: "desc" }, take: 6 });
   const kick = "https://kick.com/XAUtestlabLIVE";
-  const live = process.env.NEXT_PUBLIC_KICK_IS_LIVE === "true";
 
   return <>
     <header>
       <a className="brand" href="#top"><span>XA</span>XAU<span>TestLab</span></a>
       <nav><a href="#how">How It Works</a><a href="#poll">Interest Poll</a><a href="#questions">Live Q&amp;A</a><a href="#faq">FAQ</a></nav>
-      <a className="button ghost" href="#live-player">{live ? "LIVE NOW" : "Watch on Kick"}</a>
+      <a className="button ghost" href="#live-player">LIVE NOW</a>
     </header>
     <main id="top">
       <section className="hero">
@@ -31,10 +30,10 @@ export default async function Home() {
           <span className="badge"><i /> Testing Phase</span>
           <h1>Automated XAUUSD Trading Bot for <em>MT5</em></h1>
           <p>The bot is already running and being tested. I’m sharing the progress live and looking for early users who want to follow the testing phase and help shape how access will be offered.</p>
-          <div className="actions"><a className="button" href="#live-player">▶ {live ? "Watch Live" : "Watch on Kick"}</a><a className="button ghost" href="#register">Register Interest</a></div>
-          <div className={`live ${live ? "on" : ""}`}><i />{live ? "Live XAUUSD Bot Testing" : "Currently offline · Next stream update coming soon"}</div>
+          <div className="actions"><a className="button" href="#live-player">▶ Watch Live</a><a className="button ghost" href="#register">Register Interest</a></div>
+          <div className="live on"><i />Live XAUUSD Bot Testing</div>
         </div>
-        <KickPlayer live={live} />
+        <KickPlayer />
       </section>
       <aside className="disclosure">⚠ <span><b>Experimental testing project.</b> Results can vary, losses are possible, and nothing on this website is financial advice or a guarantee of performance.</span></aside>
       <PollBox />
