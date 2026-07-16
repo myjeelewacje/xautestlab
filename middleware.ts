@@ -11,6 +11,7 @@ export function middleware(request: NextRequest) {
     const url = request.nextUrl.clone();
     url.protocol = "https:";
     url.hostname = "xautestlab.com";
+    url.port = "";
     return NextResponse.redirect(url, 308);
   }
 
