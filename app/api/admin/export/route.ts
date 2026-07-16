@@ -1,0 +1,3 @@
+import {NextResponse} from "next/server";import {db} from "@/lib/db";import {isAdmin} from "@/lib/security";
+const csv=(v:unknown)=>"\""+String(v??"").replaceAll("\"","\"\"")+"\"";
+export async function GET(){if(!await isAdmin())return new NextResponse("Unauthorized",{status:401});const rows=await db.interestRegistration.findMany({orderBy:{createdAt:"desc"}});const body=[["email","name","preferred_model","contact_handle","contacted","created_at"],...rows.map(r=>[r.email,r.name,r.preferredModel,r.contactHandle,r.contacted,r.createdAt.toISOString()])].map(r=>r.map(csv).join(",")).join("\n");return new NextResponse(body,{headers:{"content-type":"text/csv; charset=utf-8","content-disposition":"attachment; filename=xautestlab-registrations.csv"}})}
