@@ -1,0 +1,2 @@
+import {NextResponse} from "next/server";import {cookies} from "next/headers";import {createAdminSession,passwordMatches} from "@/lib/security";
+export async function POST(req:Request){const {password}=await req.json();if(typeof password!=="string"||!passwordMatches(password))return NextResponse.json({error:"Invalid credentials"},{status:401});(await cookies()).set("xau_admin",await createAdminSession(),{httpOnly:true,sameSite:"strict",secure:process.env.NODE_ENV==="production",maxAge:28800,path:"/"});return NextResponse.json({ok:true})}
