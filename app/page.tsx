@@ -2,6 +2,7 @@ import Link from "next/link";
 import { KickPlayer } from "@/components/KickPlayer";
 import { InterestForm, QuestionForm } from "@/components/Forms";
 import { Performance } from "@/components/Performance";
+import { AccessProcess } from "@/components/AccessProcess";
 import { db } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
@@ -38,6 +39,7 @@ export default async function Home() {
       </section>
       <aside className="disclosure">⚠ <span><b>Experimental testing project.</b> Results can vary, losses are possible, and nothing on this website is financial advice or a guarantee of performance.</span></aside>
       <Performance />
+      <AccessProcess />
       <div className="two">
         <InterestForm />
         <section className="panel questions" id="questions">
@@ -45,7 +47,7 @@ export default async function Home() {
           <div className="question-list">{questions.length ? questions.map(q => <article key={q.id}><div><b>{q.displayName || "Visitor"}</b><time>{q.createdAt.toLocaleDateString("en-GB")}</time></div><p>{q.question}</p><small>{q.answer ? "Answered" : "Waiting for answer"}</small>{q.answer && <blockquote>{q.answer}</blockquote>}</article>) : <div className="empty">No published questions yet. Be the first to ask.</div>}</div>
         </section>
       </div>
-      <section id="how"><div className="section-title"><span className="eyebrow">A transparent testing loop</span><h2>How it works</h2></div><div className="steps">{[["01", "Watch live results", "Follow the bot’s testing progress on Kick."], ["02", "Review performance", "Follow dated balance, equity and profit updates from the testing account."], ["03", "Join the testing phase", "Register your interest and receive future testing updates."]].map(x => <article className="panel" key={x[0]}><span>{x[0]}</span><h3>{x[1]}</h3><p>{x[2]}</p></article>)}</div></section>
+      <section id="how"><div className="section-title"><span className="eyebrow">A transparent testing loop</span><h2>How it works</h2></div><div className="steps">{[["01", "Register for early access", "Submit the registration form. We review applications and contact selected participants with a private Fusion+ invitation."], ["02", "Complete phase 1", "Follow the account at the fixed 0.01-lot setting for the mandatory first month while monitoring the live results."], ["03", "Choose your phase 2 setting", "After the first month, we contact you to discuss the lot setting and reduced performance-fee rate for the next phase."]].map(x => <article className="panel" key={x[0]}><span>{x[0]}</span><h3>{x[1]}</h3><p>{x[2]}</p></article>)}</div></section>
       <section id="faq" className="faq"><div className="section-title"><span className="eyebrow">Clear answers</span><h2>Frequently asked questions</h2></div>{faqs.map(f => <details key={f[0]}><summary>{f[0]}<span>+</span></summary><p>{f[1]}</p></details>)}</section>
     </main>
     <footer><div className="brand">XAU<span>TestLab</span></div><p>Early Access Testing · Built for transparent experimentation.</p><div><Link href="/privacy">Privacy Policy</Link><Link href="/terms">Terms &amp; Risk Disclosure</Link><a href={kick} target="_blank" rel="noopener noreferrer">Kick</a></div><small>© {new Date().getFullYear()} XAUTestLab. All rights reserved.</small></footer>
